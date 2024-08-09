@@ -138,6 +138,7 @@ public class Board
 
     internal void FillGapsWithNewItems()
     {
+        
         for (int x = 0; x < boardSizeX; x++)
         {
             for (int y = 0; y < boardSizeY; y++)
@@ -146,13 +147,41 @@ public class Board
                 if (!cell.IsEmpty) continue;
 
                 NormalItem item = new NormalItem();
+                bool condition = false;
+                do
+                {
+                    condition = false;
+                    item.Clear(); 
 
-                item.SetType(Utils.GetRandomNormalType());
-                item.SetView();
-                item.SetViewRoot(m_root);
 
-                cell.Assign(item);
-                cell.ApplyItemPosition(true);
+                    item.SetType(Utils.GetRandomNormalType());
+                    item.SetView();
+                    item.SetViewRoot(m_root);
+
+                    cell.Assign(item);
+                    cell.ApplyItemPosition(true);
+ 
+                    if (item.View.ToString() == cell.NeighbourBottom.Item.View.ToString())
+                    {
+                        condition = true;
+                    }
+                    else if(cell.NeighbourLeft != null){
+                        if(item.View.ToString() == cell.NeighbourLeft.Item.View.ToString())
+                        {
+                            condition = true; 
+                        }
+                    }
+                    else if (x != boardSizeX-1 && cell.NeighbourRight.Item != null)
+                    {
+
+                        if (item.View.ToString() == cell.NeighbourRight.Item.View.ToString())
+                        {
+                            condition = true;
+                        }
+                    }
+                }
+                while (condition);
+
             }
         }
     }
