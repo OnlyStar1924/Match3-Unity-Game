@@ -161,11 +161,11 @@ public class Board
                     cell.Assign(item);
                     cell.ApplyItemPosition(true);
  
-                    if (item.View.ToString() == cell.NeighbourBottom.Item.View.ToString())
+                    if (y != 0 && item.View.ToString() == cell.NeighbourBottom.Item.View.ToString())
                     {
                         condition = true;
                     }
-                    else if(cell.NeighbourLeft != null){
+                    else if(x != 0 && cell.NeighbourLeft != null){
                         if(item.View.ToString() == cell.NeighbourLeft.Item.View.ToString())
                         {
                             condition = true; 
